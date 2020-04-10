@@ -7,7 +7,7 @@ class Menu extends Phaser.Scene {
         console.log(this);
         this.add.text(20, 20, "Rocket Patrol Menu");
 
-        // launch the enxt scene
+        // launch the next scene
         this.scene.start("playScene");
     }
 }
