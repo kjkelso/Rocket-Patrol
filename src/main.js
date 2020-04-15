@@ -13,5 +13,6 @@ let keyF, keyLEFT, keyRIGHT;
 // define game settings
 game.settings = {
     spaceshipSpeed: 3,
+    newSpaceshipSpeed: 8,
     gameTimer: 60000    
 }

@@ -10,14 +10,14 @@ class Rocket extends Phaser.GameObjects.Sprite {
 
     update() {
         //left/right movement
-        if(!this.isFiring) {
+        //if(!this.isFiring) {
             if(keyLEFT.isDown && this.x >=47) {
                 this.x -= game.settings.spaceshipSpeed;
             }
             if(keyRIGHT.isDown && this.x <= 598) {
                 this.x += 2;
             }
-        }
+       // }
 
         //fire button (not spacebar)
         // fire button
