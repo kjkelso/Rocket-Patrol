@@ -30,7 +30,7 @@ class Play extends Phaser.Scene {
         //add rocket (p1)
         this.p1Rocket = new Rocket(this, game.config.width/2, 431, 'rocket').setScale(0.5, 0.5).setOrigin(0, 0);
 
-        //add spaceship (x3)
+        //add spaceship (x3) and little one
         this.ship01 = new Spaceship(this, game.config.width + 192, 132, 'spaceship', 0, 25).setOrigin(0, 0);
         this.ship02 = new Spaceship(this, game.config.width + 96, 196, 'spaceship', 0, 25).setOrigin(0, 0);
         this.ship03 = new Spaceship(this, game.config.width, 260, 'spaceship', 0, 25).setOrigin(0, 0);
@@ -91,7 +91,22 @@ class Play extends Phaser.Scene {
             },
             fixedWidth:200
         }
-        this.timeLeft = this.add.text(69, 54, game.settings.gameTimer/1000, scoreConfig);
+        this.timerGoing = game.settings.gameTimer/1000;
+        console.log(this.timerGoing);
+        this.timeLeft = this.add.text(69, 54, this.timerGoing, timeConfig);
+
+        for (let i = 1000; i < game.settings.gameTimer + 1000; i+=1000) { 
+            this.clock = this.time.delayedCall(i, () => {
+                this.timerGoing -= 1;
+            }, null, this);
+        }
+
+        //speed up at 30s
+        this.clock = this.time.delayedCall(30000, () => {
+            console.log(game.settings.spaceshipSpeed);
+            game.settings.spaceshipSpeed += 2;
+            console.log(game.settings.spaceshipSpeed);
+        }, null, this);
     }
 
     update() {
@@ -106,6 +121,7 @@ class Play extends Phaser.Scene {
         //scroll starfield
         this.parallax.tilePositionX -= 3.5;
         this.starfield.tilePositionX -= 2;
+        this.newSpaceship.x -= 3;
         if (!this.gameOver) {               
             this.p1Rocket.update();         // update rocket sprite
             this.ship01.update();           // update spaceships (x3)
@@ -131,6 +147,8 @@ class Play extends Phaser.Scene {
             this.p1Rocket.reset();
             this.shipExplode(this.newSpaceship);
         }
+
+        this.timeLeft.text = this.timerGoing;
         
     }
 
@@ -161,9 +179,9 @@ class Play extends Phaser.Scene {
         this.sound.play('sfx_explosion');        
     }
 
-    countdownClock(timeLeft) {
+    /*countdownClock(timeLeft) {
         if (this.timeLeft > 0) {
             this.timeLeft = (game.settings.gameTimer/1000) - 1;
         }
-    }
+    } */
 }
