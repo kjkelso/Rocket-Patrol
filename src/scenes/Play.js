@@ -16,8 +16,8 @@ class Play extends Phaser.Scene {
 
     create() {
         //place tile sprite
-        this.parallax = this.add.tileSprite(0, 0, 640, 480, 'parallax').setOrigin(0,0);
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
+        this.parallax = this.add.tileSprite(0, 0, 640, 480, 'parallax').setScale(.9, .8).setOrigin(-.1, -.15);
 
         // white rectangle borders
         this.add.rectangle(5, 5, 630, 32, 0xAAADE).setOrigin(0, 0);
@@ -104,8 +104,8 @@ class Play extends Phaser.Scene {
         }
 
         //scroll starfield
-        this.parallax.tilePositionX -= 5;
-        this.starfield.tilePositionX -= 4;
+        this.parallax.tilePositionX -= 3.5;
+        this.starfield.tilePositionX -= 2;
         if (!this.gameOver) {               
             this.p1Rocket.update();         // update rocket sprite
             this.ship01.update();           // update spaceships (x3)
